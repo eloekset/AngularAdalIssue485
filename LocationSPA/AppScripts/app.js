@@ -2,12 +2,13 @@
 
 var locationApp = angular.module('locationApp', ['AdalAngular']);
 
-locationApp.config(['$httpProvider', 'adalAuthenticationServiceProvider', function ($httpProvider, adalProvider) {
+locationApp.config(['$locationProvider', '$httpProvider', 'adalAuthenticationServiceProvider', function ($locationProvider, $httpProvider, adalProvider) {
     // endpoints map the address to the Web API to the app registration URI in Azure AD.
     var endpoints = {
         "https://localhost:44309/": "<location-svc-app-id-uri-in-azure-ad>"
     };
 
+    $locationProvider.hashPrefix('');  // Needed for adal.js isCallback function to find id_token
     adalProvider.init({
         instance: 'https://login.microsoftonline.com/',
         tenant: '<your-tenant>.onmicrosoft.com',
